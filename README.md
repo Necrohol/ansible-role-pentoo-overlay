@@ -5,7 +5,7 @@ Also adds necessary prerequisites like git.
 
 ## License
 
-[GPL-3.0 License](LICENSE)
+[GPL-2.0 License](LICENSE)
 
 ## Author Information
 original Template Author 
