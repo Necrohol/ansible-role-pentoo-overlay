@@ -1,10 +1,10 @@
 galaxy_info:
-  role_name: expeditioneer_overlay
-  namespace: expeditioneer
-  author: Dennis Lamm
-  description: Expeditioneer Overlay
+  role_name: pentoo_overlay
+  namespace: pentoo
+  author: pentoo Authors
+  description: pentoo Overlay
 
-  license: GPL-3.0-only
+  license: GPL-2.0-only
 
   min_ansible_version: 2.1
 

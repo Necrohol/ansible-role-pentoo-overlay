@@ -10,7 +10,7 @@
   become: yes
   loop:
     - /etc/portage/repos.conf
-    - /var/db/repos/expeditioneer
+    - /var/db/repos/pentoo
 
 - name: install git
   package:
@@ -18,17 +18,17 @@
       - dev-vcs/git
   become: yes
 
-- name: add required expeditioneer overlay
+- name: add required pentoo overlay
   template:
-    src: expeditioneer-overlay.j2
-    dest: /etc/portage/repos.conf/expeditioneer.conf
+    src: pentoo-overlay.j2
+    dest: /etc/portage/repos.conf/pentoo.conf
     owner: root
     group: root
     mode: 0644
   become: yes
-  register: expeditioneer_overlay
+  register: pentoo_overlay
 
 - name: sync all portage overlays
   command: eix-sync
   become: yes
-  when: expeditioneer_overlay.changed
+  when: pentoo_overlay.changed
