@@ -1,0 +1,21 @@
+galaxy_info:
+  role_name: expeditioneer_overlay
+  namespace: expeditioneer
+  author: Dennis Lamm
+  description: Expeditioneer Overlay
+
+  license: GPL-3.0-only
+
+  min_ansible_version: 2.1
+
+  platforms:
+   - name: Gentoo
+     versions:
+     - all
+
+  galaxy_tags:
+    - portage
+    - overlay
+    - repository
+
+dependencies: []
