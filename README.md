@@ -10,3 +10,5 @@ Also adds necessary prerequisites like git.
 ## Author Information
 original Template Author 
 [Dennis Lamm](https://github.com/expeditioneer/)
+
+Newer Templated Derived [ @necrose99 ](https://github.com/necrose99)
