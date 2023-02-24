@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/expeditioneer-overlay.iml" filepath="$PROJECT_DIR$/.idea/expeditioneer-overlay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pentoo-overlay.iml" filepath="$PROJECT_DIR$/.idea/pentoo-overlay.iml" />
     </modules>
   </component>
 </project>

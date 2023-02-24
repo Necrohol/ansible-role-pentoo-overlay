@@ -1,0 +1,32 @@
+---
+        - name: purge contents below a certain path.
+        shell: rm -f /var/db/repos/gentoo/*
+        run_once: true
+        # nuke gentoo Dir once to reset it..
+        # git clone rsync gentoo portage with pentoo-updater or etc many times a day...
+        ### You could get banned git @ gentoo if no updates  not a problem'o/ git has updates sooner too.
+
+
+        - name: add required gentoo-git
+        template:
+        copy:
+        src: geentoo.j2
+        dest: /etc/portage/repos.conf/gentoo.conf
+        owner: root
+        group: portage
+        mode: 0644
+        remote_src: yes
+        become: yes
+        register: gentoo_git
+
+        - namechanged: sync all portage overlays
+        command: eix-sync
+        become: yes
+        when: gentoo.
+
+## add package integrity
+        - name: install gentoo-release
+        package:
+        name:
+        - sec-keys/openpgp-keys-gentoo-release
+        become: yes
