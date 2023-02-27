@@ -1,0 +1,8 @@
+{
+  ...
+
+  "files.associations": {
+    "*plays.yml": "ansible",
+    "*init.yml": "yaml",
+  }
+}

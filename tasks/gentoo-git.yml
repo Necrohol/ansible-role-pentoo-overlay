@@ -1,3 +1,5 @@
+        # code: language=ansible
+
 ---
         - name: purge contents below a certain path.
         shell: rm -f /var/db/repos/gentoo/*

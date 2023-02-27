@@ -1,6 +1,8 @@
+# code: language=ansible
+
 - cron: name="pentoo-updater"
         user=root
         job="pentoo-updater --timeout > /dev/null"
         minute=360
         # 6 hours every 6 hours
-        become: yes
+become: yes

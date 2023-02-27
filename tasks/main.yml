@@ -1,57 +1,79 @@
----
-- hosts: all
-  roles:
+
+# code: language=ansible
+
+# https://galaxy.ansible.com/ganto/gentoo_portage include minimal portage for tasks/futher emerge foo/automations
+      
+# ensurse eix etc gets emerged etc ie docker bare stage3 etc.
+
+# other roles
+     
+#  ansible-galaxy install vundb.gentoo_bootstrap
+
+#  https://github.com/vundb/ansible-role-system-bootstrap
+   
+ # ansible-galaxy install diodonfrost.ssh_hardening
+
+--- 
+name: Apply Gentoo Portage role to all hosts
+  hosts: all
+  roless:
     - name: ganto.gentoo_portage
-      # https://galaxy.ansible.com/ganto/gentoo_portage include minimal portage for tasks
-      # ensurse eix etc gets emerged etc ie docker bare stage3 etc.
+      task:
+        # Include minimal portage for tasks
+        # Ensure eix etc. gets emerged, e.g. docker, bare, stage3, etc. building gentoo / pentoo on arm64 etc i sure as HELL no need emerge .... to lary the git-cow... let the robots...
+        - name: Include minimal portage
+          include_tasks: gentoo-git.yml cronjobs.yml
 
-- # other roles
-     #  ansible-galaxy install vundb.gentoo_bootstrap
-    #  https://github.com/vundb/ansible-role-system-bootstrap
-    # ansible-galaxy install diodonfrost.ssh_hardening
+-name: Create overlay directory
+  hosts: all
+  tasks:
 
 
-- name: create overlay directory
-  file:
-    path: '{{ item }}'
-    state: directory
-    owner: root
-    group: portage
-    mode: 0755
-  become: yes
-  loop:
-    - /etc/portage/repos.conf
-    - /var/db/repos/pentoo
+    - name: Create /var/db/repos/pentoo directory
+      file:
+        path: /var/db/repos/pentoo
+        state: directory
+        owner: root
+        group: portage
+        mode: 0755
+      become: true
 
-- name: install git
-  package:
-    name:
-      - dev-vcs/git
-  become: yes
-
-- name: add required pentoo overlay
-  template:
-    src: pentoo-overlay.j2
-    dest: /etc/portage/repos.conf/pentoo.conf
-    owner: root
-    group: root
-    mode: 0644
-  become: yes
-  register: pentoo_overlay
-
-- include: gentoo-git.xml
-
-- name: sync all portage overlays
-  command: eix-sync
-  become: yes
-  when: pentoo_overlay.changed
-
- - include: cronjobs.yml
+- name: Install Git package
+  hosts: all
+  tasks:
+    - name: Install Git package
+      package:
+        name: dev-vcs/git
+      become: true
+# install pentoo 
+- name: Add required Pentoo overlay
+  hosts: all
+  tasks:
+    - name: Add Pentoo overlay configuration
+      template:
+        src: pentoo-overlay.j2
+        dest: /etc/portage/repos.conf/pentoo.conf
+        owner: root
+        group: root
+        mode: 0644
+      become: true
+      register: pentoo_overlay
+# do sync pentoo and gentoo
+- name: Sync all Portage overlays
+  hosts: all
+  tasks:
+    - name: Sync Portage overlays
+      command: eix-sync
+      become: true
+      when: pentoo_overlay.changed
 
 - name: Create pentoo-updater link
-    become: yes
-  file:
-    src: "{{/var/db/repos/pentoo/scripts/pentoo-updater.sh}}"
-    dest: "/usr/bin/pentoo-updater"
-    state: link
-
+# add pentoo updater n run Cron to death on automated boxes n keep local binhost/etc build up or iot builds 
+  hosts: all
+  tasks:
+    - name: Create pentoo-updater link
+      file:
+        src: "/var/db/repos/pentoo/scripts/pentoo-updater.sh"
+        dest: "/usr/bin/pentoo-updater"
+        state: link
+      become: true
